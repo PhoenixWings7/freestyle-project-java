@@ -6,6 +6,15 @@ import java.util.Arrays;
 import static java.util.Arrays.binarySearch;
 
 public class Inventory {
+    protected static String[] inventoryNames;
+    protected static int[] inventoryValues;
+
+    Inventory() {
+        // assign first inventory content
+        inventoryNames = new String[] {"Daggers", "Swords", "Troops", "Stones", "Coins", "Gems"};
+        inventoryValues = new int[] {1, 0, 0, 0, 100, 10};
+    }
+
     protected static void printInventory(String[] inventoryNames, int[] inventoryValues) {
         // print the header of inventory
         System.out.println("Your inventory");
@@ -39,17 +48,10 @@ public class Inventory {
         }
         return inventoryValues;
     }
-
-    public static void main(String[] args) {
-        String[] inventoryNames = {"Daggers", "Swords", "Stones", "Troops"};
-        int[] inventoryValues = new int[] {1, 3, 0, 12};
-
-        printInventory(inventoryNames, inventoryValues);
-
-        String[] itemsToAdd = {"Daggers", "Minions", "Stones", "Swords", "Daggers"};
-        int[] valuesToAdd = new int[] {1, 3, 10, 5, 34};
-        inventoryValues = addToinventory(inventoryNames, inventoryValues, itemsToAdd, valuesToAdd);
-
-        printInventory(inventoryNames, inventoryValues);
+    protected static String[] getItemsNames() {
+        return inventoryNames;
+    }
+    protected static int[] getInventoryValues() {
+        return inventoryValues;
     }
 }
