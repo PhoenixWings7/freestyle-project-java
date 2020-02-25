@@ -1,4 +1,4 @@
-package com.codecool.inventory;
+package com.codecool.dragonHunter;
 
 
 import java.util.Arrays;
@@ -6,8 +6,8 @@ import java.util.Arrays;
 import static java.util.Arrays.binarySearch;
 
 public class Inventory {
-    protected static String[] inventoryNames;
-    protected static int[] inventoryValues;
+    private static String[] inventoryNames;
+    private static int[] inventoryValues;
 
     Inventory() {
         // assign first inventory content

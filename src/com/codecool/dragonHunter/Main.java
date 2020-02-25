@@ -1,6 +1,6 @@
-package com.codecool.inventory;
+package com.codecool.dragonHunter;
 
-import static com.codecool.inventory.Inventory.addToinventory;
+import static com.codecool.dragonHunter.Inventory.addToinventory;
 
 public class Main {
 
