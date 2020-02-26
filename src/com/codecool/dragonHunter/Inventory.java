@@ -6,22 +6,17 @@ import java.util.Arrays;
 import static java.util.Arrays.binarySearch;
 
 public class Inventory {
-    private static String[] inventoryNames;
-    private static int[] inventoryValues;
 
-    Inventory() {
-        // assign first inventory content
-        inventoryNames = new String[] {"Daggers", "Swords", "Troops", "Stones", "Coins", "Gems"};
-        inventoryValues = new int[] {1, 0, 0, 0, 100, 10};
-    }
+    protected static final String[] INVENTORY_NAMES = new String[] {"Daggers", "Swords", "Troops", "Stones", "Coins", "Gems"};
+    protected static final int[] INVENTORY_VALUES = new int[] {1, 0, 0, 0, 100, 10};
 
-    protected static void printInventory(String[] inventoryNames, int[] inventoryValues) {
+    protected static void printInventory() {
         // print the header of inventory
         System.out.println("Your inventory");
-        for (int itemIndex = 0; itemIndex < inventoryNames.length; itemIndex++) {
+        for (int itemIndex = 0; itemIndex < INVENTORY_NAMES.length; itemIndex++) {
             try {
-                String itemName = inventoryNames[itemIndex];
-                int itemValue = inventoryValues[itemIndex];
+                String itemName = INVENTORY_NAMES[itemIndex];
+                int itemValue = INVENTORY_VALUES[itemIndex];
                 // print one line for item name and value
                 System.out.println(itemName + ":" + itemValue);
             }
@@ -33,25 +28,24 @@ public class Inventory {
         }
     }
 
-    protected static int[] addToinventory(String[] inventoryNames, int[] inventoryValues,
-                                          String[] objectsToAdd, int[] valuesToAdd) {
+    protected static int[] addToinventory(String[] objectsToAdd, int[] valuesToAdd) {
         for (int i = 0; i < objectsToAdd.length; i++) {
             // get object name and it's value to add to inventory
             String objectToAdd = objectsToAdd[i];
             int valueToAdd = valuesToAdd[i];
 
-            int inventoryObjIndex = Arrays.asList(inventoryNames).indexOf(objectToAdd);
+            int inventoryObjIndex = Arrays.asList(INVENTORY_NAMES).indexOf(objectToAdd);
             boolean inventoryContainsObj = (inventoryObjIndex >= 0);
             if (inventoryContainsObj) {
-                inventoryValues[inventoryObjIndex] += valueToAdd;
+                INVENTORY_VALUES[inventoryObjIndex] += valueToAdd;
             }
         }
-        return inventoryValues;
+        return INVENTORY_VALUES;
     }
     protected static String[] getItemsNames() {
-        return inventoryNames;
+        return INVENTORY_NAMES;
     }
     protected static int[] getInventoryValues() {
-        return inventoryValues;
+        return INVENTORY_VALUES;
     }
 }

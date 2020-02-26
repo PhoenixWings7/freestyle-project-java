@@ -4,21 +4,13 @@ import java.util.Scanner;
 
 class Util {
     protected static String getUserResponse() {
-        System.out.println("Your choice");
-        Scanner inputObj = new Scanner(System.in);
-        String userInput = inputObj.nextLine();
-        return userInput;
+        return getUserResponse("Your choice: ");
     }
 
     protected static String getUserResponse(String header) {
         System.out.println(header);
         Scanner inputObj = new Scanner(System.in);
-        String userInput = inputObj.nextLine();
-        return userInput;
-    }
-
-    public static boolean checkUserChoice(String correctAnswer, String userAnswer) {
-        return correctAnswer.matches(userAnswer);
+        return inputObj.nextLine();
     }
 
     public static void printInstruction(String instruction) {

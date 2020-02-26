@@ -1,8 +1,11 @@
 package com.codecool.dragonHunter;
 
+import java.util.Arrays;
+
 public class Chapter1 {
-    // numbers of scenes to iterate on them
-    private static final int[] SCENES = new int[] {0, 1, 2};
+    // chapter intro
+    private static final String INTRO = "Chapter 1\n";
+
     /*
          array of plot instructions in the form: [scene1 instructions, scene2 instructions, ...]
         there has to be a single instruction String for each choice instruction
@@ -27,55 +30,72 @@ public class Chapter1 {
             // separating string in the 3rd dimension of the array is here to help check user response later
             {{"a", ". accept"}, {"b", ". refuse"}, {"c", ". bargain"}},
             {{"a", ". accept"}, {"b", ". refuse"}, {"c", ". bargain"}},
-            {{"Press any key"}}
+            {{"Press any key to end the chapter."}}
     };
-    private static final String [][][] RESPONSES_RESULTS_HEADERS = {
-            // "skip scene" and "next scene" will be validated and used to help control the flow of the game
+    private static final String [][][] ACTION_RESULTS_HEADERS = {
+            // "skip scene" will be validated and used to help control the flow of the game
+            // "next scene" is only here to create a non-empty array
             {{"Coins", "Daggers", "skip scene"}, {"skip scene"}, {"next scene"}},
-            {{"Coins", "Daggers"}, {"next scene"}, {"Coins", "next scene"}},
+            {{"Coins", "Daggers"}, {"next scene"}, {"Coins"}},
             {{"next scene"}}
     };
-    private static final int[][][] RESPONSES_RESULTS_VALUES = {
+    private static final int[][][] ACTION_RESULTS_VALUES = {
             {{-15, 1, 1}, {1}, {0}},
-            {{-10, 1}, {0}, {-20, 0}},
+            {{-10, 1}, {0}, {-20}},
             {{0}}
     };
 
     static void playChapter() {
-        // for each scene (scene index)...
-        for (int scene: SCENES) {
+        // display first chapter welcome
+        Util.printInstruction(INTRO);
+
+        // for each scene (scene index) except the last because it can't have any choices...
+        for (int sceneIndex = 0; sceneIndex < INSTRUCTIONS.length; sceneIndex++) {
+            // initiate actionChose boolean to use later...
+            boolean actionChose = false;
+
+            String[][] sceneChoices = CHOICES[sceneIndex];
+            String sceneInstructions = INSTRUCTIONS[sceneIndex];
+            int numOfSkips = 0;
+
             // show instructions and user action options...
-            Util.printInstruction(INSTRUCTIONS[scene]);
-            Util.printChoices(CHOICES[scene]);
+            Util.printInstruction(sceneInstructions);
+            Util.printChoices(sceneChoices);
 
-            // ...and activate and check the user choice
-            boolean isChoiceValid = activateChoices(scene);
+            // break the loop if it's the last scene
+            if (sceneIndex >= INSTRUCTIONS.length-1){
+                Util.getUserResponse("");
+                break;
+            }
+            // get user response
+            String userResponse = Util.getUserResponse();
+
+
             // get user to make a choice again if choice is not valid
-            while (! isChoiceValid) {
-                isChoiceValid = activateChoices(scene);
+            for (int choiceIndex = 0; choiceIndex < sceneChoices.length; choiceIndex++) {
+
+                String choiceValidInput = CHOICES[sceneIndex][choiceIndex][0];
+                String[] choiceResultsHeaders = ACTION_RESULTS_HEADERS[sceneIndex][choiceIndex];
+                int[] choiceResultsValues = ACTION_RESULTS_VALUES[sceneIndex][choiceIndex];
+
+                Choice choice = new Choice(choiceValidInput, userResponse, choiceResultsHeaders, choiceResultsValues);
+                if (choice.isChoiceValid) {
+                    // add items to inventory
+                    Inventory.addToinventory(choiceResultsHeaders, choiceResultsValues);
+                    numOfSkips = choice.numOfSkips;
+                    actionChose = true;
+
+                }
+            }
+            // repeat the scene if user chose invalid option
+            if (!actionChose) {
+                sceneIndex-=1;
+                continue;
+            }
+
+            if (numOfSkips > 0) {
+                sceneIndex+=numOfSkips;
             }
         }
-    }
-    static boolean activateChoices(int sceneIndex) {
-        // get user response and initiate actionChose boolean to use later...
-        String userResponse = Util.getUserResponse();
-        boolean actionChose;
-
-        // ...then for each possible choices in the scene check user chosen action
-        for (int choiceIndex = 0; choiceIndex < CHOICES[sceneIndex].length; choiceIndex++) {
-            String choiceValidInput = CHOICES[sceneIndex][choiceIndex][0];
-
-            actionChose = Util.checkUserChoice(choiceValidInput, userResponse);
-            if (actionChose) {
-                // if the user chose one of the actions, add items to the inventory
-
-
-
-                // and go to the next scene by returning the choice is valid
-                return true;
-            }
-        }
-        // return false if choice is not valid so you can restart the choice
-        return false;
     }
 }
