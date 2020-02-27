@@ -58,6 +58,13 @@ public class Chapter1 {
             String sceneInstructions = INSTRUCTIONS[sceneIndex];
             int numOfSkips = 0;
 
+            // print dividing lines, inventory and user stats
+            Util.printDividingLine();
+            Util.printUserStats();
+            Util.printDividingLine("-");
+            Util.printInventory();
+            Util.printDividingLine();
+
             // show instructions and user action options...
             Util.printInstruction(sceneInstructions);
             Util.printChoices(sceneChoices);

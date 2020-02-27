@@ -1,13 +1,10 @@
 package com.codecool.dragonHunter;
-
-
 import java.util.Arrays;
-
-import static java.util.Arrays.binarySearch;
 
 public class Inventory {
 
-    protected static final String[] INVENTORY_NAMES = new String[] {"Daggers", "Swords", "Troops", "Stones", "Coins", "Gems"};
+    protected static final String[] INVENTORY_NAMES =
+            new String[] {"Daggers", "Swords", "Troops", "Stones", "Coins", "Gems"};
     protected static final int[] INVENTORY_VALUES = new int[] {1, 0, 0, 0, 100, 10};
 
     protected static void printInventory() {
@@ -28,7 +25,7 @@ public class Inventory {
         }
     }
 
-    protected static int[] addToinventory(String[] objectsToAdd, int[] valuesToAdd) {
+    protected static void addToinventory(String[] objectsToAdd, int[] valuesToAdd) {
         for (int i = 0; i < objectsToAdd.length; i++) {
             // get object name and it's value to add to inventory
             String objectToAdd = objectsToAdd[i];
@@ -40,7 +37,6 @@ public class Inventory {
                 INVENTORY_VALUES[inventoryObjIndex] += valueToAdd;
             }
         }
-        return INVENTORY_VALUES;
     }
     protected static String[] getItemsNames() {
         return INVENTORY_NAMES;
