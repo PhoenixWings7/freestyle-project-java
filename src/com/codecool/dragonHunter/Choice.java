@@ -28,6 +28,9 @@ public class Choice {
     }
 
     static boolean validateUserChoice(String correctAnswer, String userAnswer) {
+        if (correctAnswer.equals("Press enter.")){
+            return true;
+        }
         return correctAnswer.matches(userAnswer);
     }
 
