@@ -18,11 +18,14 @@ class Util {
     }
 
     public static void printChoices(String[][] choices) {
+        // for each choice option array...
         for (String[] choiceElements: choices) {
+            // ... create a joint string of the full user-readable option
             String choice = "";
             for (String choiceElem: choiceElements) {
                 choice += choiceElem;
             }
+            // print the string
             System.out.println(choice);
         }
     }

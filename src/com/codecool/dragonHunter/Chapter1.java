@@ -20,7 +20,7 @@ public class Chapter1 {
                 "Shopkeeper goes away."
     };
     /*
-    *   3 three-dimentional arrays made to define, check and change conditions of the game
+    *   3 three-dimensional arrays made to define, check and change conditions of the game
     *   each array levels:
     *       1. [arrays for each scene]
     *       2. [array of arrays for each possible choice]
@@ -82,7 +82,9 @@ public class Chapter1 {
                 if (choice.isChoiceValid) {
                     // add items to inventory
                     Inventory.addToinventory(choiceResultsHeaders, choiceResultsValues);
+                    // set number of scenes to skip based on the user choice
                     numOfSkips = choice.numOfSkips;
+                    // user chose a valid action
                     actionChose = true;
 
                 }
@@ -93,6 +95,7 @@ public class Chapter1 {
                 continue;
             }
 
+            // skip scenes if the choice's result defines it
             if (numOfSkips > 0) {
                 sceneIndex+=numOfSkips;
             }

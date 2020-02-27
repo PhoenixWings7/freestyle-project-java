@@ -13,38 +13,17 @@ public class Choice {
         numOfSkips = getSkippedScenesNum(choiceResultsHeaders, choiceResultsValues, "skip scene");
     }
 
-/*
-    static boolean validateChoice(int sceneIndex, String[][][] choices) {
-        // get user response and initiate actionChose boolean to use later...
-        String userResponse = Util.getUserResponse();
-        boolean actionChose;
-
-        // ...then for each possible choices in the scene check user chosen action
-        for (int choiceIndex = 0; choiceIndex < choices[sceneIndex].length; choiceIndex++) {
-            String choiceValidInput = choices[sceneIndex][choiceIndex][0];
-
-            actionChose = checkUserChoice(choiceValidInput, userResponse);
-            if (actionChose) {
-                // if the user chose one of the actions, add items to the inventory
-
-
-
-                // and go to the next scene by returning the choice is valid
-                return true;
-            }
-        }
-        // return false if choice is not valid so you can restart the choice
-        return false;
-    }
-*/
 
     static int getSkippedScenesNum(String[] choiceResultsHeaders, int[] choiceResultValues, String keyword) {
+        // get the index of the "skip scene" choice label from headers
         int skippingSceneIndex = Arrays.asList(choiceResultsHeaders).indexOf(keyword);
+        // if there are scenes to skip (you get skipSceneIndex < 0 if there's no "skip scene" header) ...
         boolean skipScene = skippingSceneIndex >= 0;
         int numOfSkips = 0;
         if (skipScene) {
             numOfSkips = choiceResultValues[skippingSceneIndex];
         }
+        // return number of scenes to skip or 0
         return numOfSkips;
     }
 
